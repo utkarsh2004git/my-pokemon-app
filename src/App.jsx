@@ -1,8 +1,15 @@
 import React from 'react'
+import Navbar from './components/Navbar'
+import Pokemon from './pages/Pokemon'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <Navbar/>
+      <Pokemon/>
+      <Footer/>
+    </div>
   )
 }
 
