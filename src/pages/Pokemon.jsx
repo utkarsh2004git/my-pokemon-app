@@ -51,15 +51,15 @@ const App = () => {
     return (
         <section className="py-10 min-h-[85vh] bg-gradient-to-br from-slate-100 to-slate-500">
             <div className="flex justify-center">
-                <form>
+                {/* <form> */}
                     <input
                         type="text"
                         placeholder="Search Pokémon"
                         onChange={(e) => setSearch(e.target.value)}
                         value={search}
-                        className=" px-6 py-2 border-b-4 bg-white border-red-600 rounded-md text-md outline-none"
+                        className=" px-6 py-2 border-b-4 bg-white border-red-600 rounded-md text-md outline-none  md:w-md"
                     />
-                </form>
+                {/* </form> */}
             </div>
             {
                 loading?<Loading/>:
