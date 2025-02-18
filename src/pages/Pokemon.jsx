@@ -3,12 +3,13 @@ import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 import Loading from "../components/Loading";
 
-const API = `https://pokeapi.co/api/v2/pokemon?limit=40`;
+const API = `https://pokeapi.co/api/v2/pokemon?limit=150`;
 
 const App = () => {
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [search, setSearch] = useState("");
 
     const fetchPokemon = async () => {
         setLoading(true)
@@ -39,17 +40,37 @@ const App = () => {
         console.log(pokemon);
     }, [pokemon]);
 
+
+    //search functionality
+
+    const SearchedData = pokemon.filter((poke) => poke.name.toLowerCase().includes(search.toLowerCase()))
+
+
+
+
     return (
-        <section className="">
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center">
-                {loading ?
-                    <Loading/>
-                    :
-                    pokemon.map((poke) => (
-                        <PokemonCard key={poke.id} pokemon={poke} />
-                    ))
-                }
+        <section className="py-10 min-h-[85vh] bg-gradient-to-br from-slate-100 to-slate-500">
+            <div className="flex justify-center">
+                <form>
+                    <input
+                        type="text"
+                        placeholder="Search Pokémon"
+                        onChange={(e) => setSearch(e.target.value)}
+                        value={search}
+                        className=" px-6 py-2 border-b-4 bg-white border-red-600 rounded-md text-md outline-none"
+                    />
+                </form>
             </div>
+            {
+                loading?<Loading/>:
+                <div className="grid my-10 grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 place-items-center">
+                    {
+                        SearchedData.map((poke) => (
+                            <PokemonCard key={poke.id} pokemon={poke} />
+                        ))
+                    }
+                </div>
+            }
         </section>
     )
 };

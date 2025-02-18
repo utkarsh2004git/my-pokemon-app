@@ -2,7 +2,7 @@ import React from 'react'
 
 const PokemonCard = ({ pokemon }) => {
     return (
-        <div className=' hover:scale-95 duration-200 cursor-pointer rounded-xl shadow-xl shadow-blue-200 p-3 flex flex-col items-center justify-center w-52 bg-gradient-to-br from-blue-50  to-blue-400 hover:from-yellow-50 hover:to-orange-300 group relative'>
+        <div className=' hover:scale-95 duration-200 cursor-pointer rounded-xl shadow-md shadow-blue-200 p-3 flex flex-col items-center justify-center w-56 bg-gradient-to-br from-blue-50  to-blue-400 hover:from-yellow-50 hover:to-orange-300 group relative'>
             <figure>
                 <img
                     src={pokemon.sprites.other.home.front_default}
