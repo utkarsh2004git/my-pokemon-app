@@ -2,4 +2,6 @@
 
 *{
     font-family: "Baloo Bhai 2", serif;
+    /* cursor: url("pokeball.png"),pointer; */
+    cursor: url(https://cdn-icons-png.flaticon.com/32/528/528101.png) , pointer;
 }
