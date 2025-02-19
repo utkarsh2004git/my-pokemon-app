@@ -9,8 +9,8 @@ const PokemonCard = ({ pokemon }) => {
 
     return (
         <motion.div
-            initial={{ opacity: 0.2, y: 60 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0.9, y: 60 }}
+            transition={{ duration: 0.3 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             onClick={toggleActive}
