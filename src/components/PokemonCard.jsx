@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { motion } from 'motion/react'
 const PokemonCard = ({ pokemon }) => {
     const [isActive, setIsActive] = useState(false);
 
@@ -8,7 +8,11 @@ const PokemonCard = ({ pokemon }) => {
     };
 
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0.2, y: 60 }}
+            transition={{ duration: 0.5 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             onClick={toggleActive}
             className={`cursor-pointer rounded-xl shadow-md shadow-blue-200 p-3 flex flex-col items-center justify-center w-56 group select-none
             bg-gradient-to-br from-blue-50 to-blue-400 transition duration-500 
@@ -17,9 +21,9 @@ const PokemonCard = ({ pokemon }) => {
         >
             <figure className="group relative">
                 <img
-                    src={!isActive?pokemon.sprites.other.home
+                    src={!isActive ? pokemon.sprites.other.home
                         .front_default
-                        :pokemon.sprites.other.showdown.front_default}
+                        : pokemon.sprites.other.showdown.front_default}
                     alt={pokemon.name}
                     className={`mx-auto w-26 h-22 transition-transform duration-500 
                     group-hover:scale-[2]  ${isActive ? 'scale-[2]' : ''}`}
@@ -63,7 +67,7 @@ const PokemonCard = ({ pokemon }) => {
                     </p>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
