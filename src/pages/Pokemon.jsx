@@ -49,7 +49,7 @@ const App = () => {
 
 
     return (
-        <section className="py-10 min-h-[85vh] bg-gradient-to-br from-slate-100 to-slate-500">
+        <section className="py-10 min-h-[85vh] ">
             <div className="flex justify-center">
                 {/* <form> */}
                     <input
