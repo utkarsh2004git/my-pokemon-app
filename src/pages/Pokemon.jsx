@@ -36,9 +36,9 @@ const App = () => {
         fetchPokemon();
     }, []);
 
-    useEffect(() => {
-        console.log(pokemon);
-    }, [pokemon]);
+    // useEffect(() => {
+    //     console.log(pokemon);
+    // }, [pokemon]);
 
 
     //search functionality
