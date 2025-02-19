@@ -10,11 +10,18 @@ const App = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [search, setSearch] = useState("");
+    const [curAPI, setCurAPI] = useState(API);
+    const [isFetching, setIsFetching] = useState(false);
 
     const fetchPokemon = async () => {
-        setLoading(true)
+
+        // Prevent multiple requests
+        if (!curAPI || isFetching) return;
+        setIsFetching(true);
+        setLoading(true);
+
         try {
-            const res = await axios.get(API);
+            const res = await axios.get(curAPI);
 
             const data = res.data.results.map(async (poke) => {
                 const mypoke = await axios.get(poke.url);
@@ -22,19 +29,43 @@ const App = () => {
             });
 
             const allPokemons = await Promise.all(data);
-            setPokemon(allPokemons);
+
+            setPokemon((prev) => {
+                const existingIds = new Set(prev.map(p => p.id));
+                const newPokemons = allPokemons.filter(p => !existingIds.has(p.id));
+                return [...prev, ...newPokemons];
+              });
+              
+
+            // console.log(res);
+            setCurAPI(res.data.next)
         } catch (error) {
             console.log(error);
             setError(error)
         }
         finally {
             setLoading(false);
+            setIsFetching(false);
+        }
+    };
+
+    const handleScroll = () => {
+
+        // Avoid multiple requests
+        if (isFetching || !curAPI) return;
+        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - 10) {
+            fetchPokemon();
         }
     };
 
     useEffect(() => {
         fetchPokemon();
     }, []);
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [isFetching, curAPI]);
 
     // useEffect(() => {
     //     console.log(pokemon);
@@ -47,7 +78,7 @@ const App = () => {
 
     return (
         <section className="py-10 min-h-[85vh] ">
-            
+
             {/* Search section */}
             <div className="flex justify-center flex-col-reverse items-center gap-3">
                 {/* <form> */}
@@ -60,18 +91,18 @@ const App = () => {
                 />
                 {/* </form> */}
                 <div
-                className="cursor-pointer rounded-xl shadow-lg  flex flex-col items-center justify-center w-fit p-3 
+                    className="cursor-pointer rounded-xl shadow-lg  flex flex-col items-center justify-center w-fit p-3 
             bg-gradient-to-br from-purple-500 to-blue-400 transition-all duration-500 
             hover:scale-105 hover:shadow-2xl text-white text-center"
-            >
+                >
 
-                <h1 className="text-xl font-bold">Click Pokémon to see Magic ✨</h1>
+                    <h1 className="text-xl font-bold">Click Pokémon to see Magic ✨</h1>
 
-            </div>
+                </div>
 
             </div>
             {
-                loading ? <Loading /> :
+                (loading && pokemon.length === 0 ) ? <Loading /> :
                     <div className="grid my-10 grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 place-items-center">
                         {
                             SearchedData.map((poke) => (
@@ -80,6 +111,8 @@ const App = () => {
                         }
                     </div>
             }
+
+            {isFetching && <Loading />} {/* Show loader when fetching more */}
         </section>
     )
 };
