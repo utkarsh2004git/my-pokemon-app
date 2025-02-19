@@ -36,40 +36,49 @@ const App = () => {
         fetchPokemon();
     }, []);
 
-    // useEffect(() => {
-    //     console.log(pokemon);
-    // }, [pokemon]);
+    useEffect(() => {
+        console.log(pokemon);
+    }, [pokemon]);
 
 
     //search functionality
-
     const SearchedData = pokemon.filter((poke) => poke.name.toLowerCase().includes(search.toLowerCase()))
-
-
 
 
     return (
         <section className="py-10 min-h-[85vh] ">
-            <div className="flex justify-center">
+            
+            {/* Search section */}
+            <div className="flex justify-center flex-col-reverse items-center gap-3">
                 {/* <form> */}
-                    <input
-                        type="text"
-                        placeholder="Search Pokémon"
-                        onChange={(e) => setSearch(e.target.value)}
-                        value={search}
-                        className=" px-6 py-2 border-b-4 bg-white border-red-600 rounded-md text-md outline-none  md:w-md"
-                    />
+                <input
+                    type="text"
+                    placeholder="Search Pokémon"
+                    onChange={(e) => setSearch(e.target.value)}
+                    value={search}
+                    className=" px-6 py-2 border-b-4 bg-white border-red-600 rounded-md text-md outline-none  md:w-md"
+                />
                 {/* </form> */}
+                <div
+                className="cursor-pointer rounded-xl shadow-lg  flex flex-col items-center justify-center w-fit p-3 
+            bg-gradient-to-br from-purple-500 to-blue-400 transition-all duration-500 
+            hover:scale-105 hover:shadow-2xl text-white text-center"
+            >
+
+                <h1 className="text-xl font-bold">Click Pokémon to see Magic ✨</h1>
+
+            </div>
+
             </div>
             {
-                loading?<Loading/>:
-                <div className="grid my-10 grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 place-items-center">
-                    {
-                        SearchedData.map((poke) => (
-                            <PokemonCard key={poke.id} pokemon={poke} />
-                        ))
-                    }
-                </div>
+                loading ? <Loading /> :
+                    <div className="grid my-10 grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 place-items-center">
+                        {
+                            SearchedData.map((poke) => (
+                                <PokemonCard key={poke.id} pokemon={poke} />
+                            ))
+                        }
+                    </div>
             }
         </section>
     )
