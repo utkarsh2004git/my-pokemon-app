@@ -112,7 +112,7 @@ const App = () => {
                     </div>
             }
 
-            {isFetching && <Loading />} {/* Show loader when fetching more */}
+            {isFetching && pokemon.length !== 0  && <Loading />} {/* Show loader when fetching more */}
         </section>
     )
 };
