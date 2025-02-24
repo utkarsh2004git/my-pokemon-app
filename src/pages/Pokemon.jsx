@@ -3,7 +3,7 @@ import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 import Loading from "../components/Loading";
 
-const API = `https://pokeapi.co/api/v2/pokemon?limit=150`;
+const API = `https://pokeapi.co/api/v2/pokemon?limit=50`;
 
 const App = () => {
     const [pokemon, setPokemon] = useState([]);
